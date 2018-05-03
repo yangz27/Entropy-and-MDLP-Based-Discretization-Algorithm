@@ -53,7 +53,7 @@ def best_cut_point(S, start, end, class_types):
     min_entST = 0
     entST = 0
     for i in range(start, end):
-        print("i: {}".format(i))
+        print("----------划分点为i: {}---------".format(i))
         while (i < end) & (S[i] == S[i+1]):
             i += 1
         entST = entropy_with_T(S, start, end, i, class_types)
@@ -105,26 +105,24 @@ def partition(S, start, end, Ts, class_types):
     # print(log(pow(3, k) - 2, 2))
     # print(k * entS - k1 * entS1 - k2 * entS2)
     delta = log(pow(3, k) - 2, 2) - (k * entS - k1 * entS1 - k2 * entS2)
-    print("delta: {}".format(delta))
+    # print("delta: {}".format(delta))
     threshold = (log(N-1, 2) + delta) / N
     # if gainST <= 0:
-    print("-----------wwwww--------")
-    print("threshold: {0} gainST: {1}".format(threshold, gainST))
+    # print("-----------wwwww--------")
+    # print("threshold: {0} gainST: {1}".format(threshold, gainST))
     if gainST <= threshold:
     # if len(Ts) >= 2:
         return Ts
     else:
         Ts.append(T)
-        print("----------")
-        print(Ts)
         partition(S, start, T, Ts, class_types)
         partition(S, T+1, end, Ts, class_types)
 
 def discretization(S, start, end, class_types):
     Ts = []
     partition(S, start, end, Ts, class_types)
-    print("-----www-----")
-    print(Ts)
+    print("-----------result-----------")
+    # print(Ts)
     print("划分点为： {}".format(Ts))
 
 def df2list(df, feature, label):
@@ -136,11 +134,11 @@ def df2list(df, feature, label):
     return list_all
 
 if __name__ =='__main__':
-    S = [[7,1], [5,1], [3,0], [4,0], [1,1], [2,0], [3,1], [0,1]]
+    S = [[7,0], [5,0], [3,0], [4,0], [1,1], [2,1], [3,1], [0,1]]
     # ent = entropy(S, 0, 7, 2)
     # print("ent of this dataset:{}".format(ent))
     # entST = entropy_with_T(S, 0, 7, 3, 2)
     # print(entST)
-    T = best_cut_point(S, 0, 7, 2)
-    print(T)
+    # T = best_cut_point(S, 0, 7, 2)
+    # print(T)
     discretization(S, 0, 7, 2)
